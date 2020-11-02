@@ -1,0 +1,87 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/vinmat20/FIT3179/main/Food_supply.csv"
+  },
+  "title": "Daily Caloric Supply per Person, 1961-2017",
+  "width": "container",
+  "encoding": {"x": {"field": "Year", "type": "temporal"}},
+  "layer": [
+    {
+      "encoding": {
+        "color": {
+          "field": "Region",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Africa",
+              "Asia",
+              "Americas",
+              "Australia & New Zealand",
+              "Europe",
+              "World"
+            ],
+            "range": [
+              "#1a8cff",
+              "#00cccc",
+              "#00b3b3",
+              "#66cc00",
+              "#e6e600",
+              "#000000"
+            ]
+          }
+        },
+        "y": {
+          "field": "Food supply (kcal/capita/day) (FAO, 2020)",
+          "type": "quantitative",
+          "title": "Food Supply (kcal/capita/day)"
+        }
+      },
+      "layer": [
+        {"mark": "line"},
+        {"transform": [{"filter": {"selection": "hover"}}], "mark": "point"}
+      ]
+    },
+    {
+      "transform": [
+        {
+          "pivot": "Region",
+          "value": "Food supply (kcal/capita/day) (FAO, 2020)",
+          "groupby": ["Year"]
+        }
+      ],
+      "mark": "rule",
+      "encoding": {
+        "opacity": {
+          "condition": {"value": 0.3, "selection": "hover"},
+          "value": 0
+        },
+        "tooltip": [
+          {
+            "field": "Year",
+            "type": "temporal",
+            "timeUnit": "year",
+            "title": "Year"
+          },
+          {"field": "Europe", "type": "quantitative"},
+          {"field": "Africa", "type": "quantitative"},
+          {"field": "Asia", "type": "quantitative"},
+          {"field": "Americas", "type": "quantitative"},
+          {"field": "Australia & New Zealand", "type": "quantitative"},
+          {"field": "World", "type": "quantitative"}
+        ]
+      },
+      "selection": {
+        "hover": {
+          "type": "single",
+          "fields": ["Year"],
+          "nearest": true,
+          "on": "mouseover",
+          "empty": "none",
+          "clear": "mouseout"
+        }
+      }
+    }
+  ],
+  "config": {}
+}
