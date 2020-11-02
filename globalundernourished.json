@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": "Global Population Defined as Undernourished, 1991-2017",
+  "data": {
+    "url": "https://raw.githubusercontent.com/vinmat20/FIT3179/main/global-population-defined-as-undernourished.csv"
+  },
+  "width": "container",
+  "mark": {"type": "line"},
+  "encoding": {
+    "x": {
+      "timeUnit": "year",
+      "field": "Year",
+      "type": "temporal",
+      "title": "Year"
+    },
+    "y": {
+      "field": "Number of people undernourished (FAO SOFI (2018) & World Bank (2017))",
+      "type": "quantitative",
+      "title": "Number of Undernourished People"
+    },
+    "tooltip": [
+      {
+        "timeUnit": "year",
+        "field": "Year",
+        "type": "temporal",
+        "title": "Year"
+      },
+      {
+        "field": "Number of people undernourished (FAO SOFI (2018) & World Bank (2017))",
+        "type": "quantitative",
+        "title": "No. of Undernourished People"
+      }
+    ]
+  },
+  "config": {"mark": {"tooltip": true}}
+}
