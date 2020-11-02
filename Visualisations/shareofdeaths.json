@@ -1,0 +1,124 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": {
+    "text": "Share of Deaths Attributed to Obesity 1990-2017",
+    "anchor": "start"
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/vinmat20/FIT3179/main/share-of-deaths-obesity.csv"
+  },
+  "vconcat": [
+    {
+      "encoding": {
+        "tooltip": [
+          {"timeUnit": "year", "field": "Year", "title": "Year"},
+          {"field": "Entity", "type": "nominal", "title": "Region"},
+          {
+            "field": "Obesity (IHME, 2019)",
+            "type": "quantitative",
+            "title": "Death by Obesity (%)",
+            "format": ".2f"
+          }
+        ],
+        "color": {
+          "condition": {
+            "selection": "brush",
+            "title": "Region",
+            "field": "Entity",
+            "type": "nominal",
+            "scale": {
+              "domain": [
+                "Africa",
+                "Asia",
+                "Europe",
+                "North America",
+                "Oceania",
+                "South America & Caribbean",
+                "World"
+              ],
+              "range": [
+                "#1a8cff",
+                "#00cccc",
+                "#00b3b3",
+                "#66cc00",
+                "#e6e600",
+                "#ffd11a",
+                "#000000"
+              ]
+            }
+          },
+          "value": "lightgray"
+        },
+        "size": {
+          "title": "Deaths by Obesity (%)",
+          "field": "Obesity (IHME, 2019)",
+          "scale": {"domain": [1, 15]},
+          "type": "quantitative"
+        },
+        "x": {"field": "Year", "timeUnit": "year", "title": "Year"},
+        "y": {
+          "title": "Share of Deaths by Obesity (%)",
+          "field": "Obesity (IHME, 2019)",
+          "scale": {"domain": [1, 15]},
+          "type": "quantitative"
+        }
+      },
+      "width": 500,
+      "height": 300,
+      "mark": {"type": "circle"},
+      "selection": {"brush": {"encodings": ["x"], "type": "interval"}},
+      "transform": [{"filter": {"selection": "click"}}]
+    },
+    {
+      "encoding": {
+        "tooltip": [
+          {"field": "Entity", "type": "nominal", "title": "Region"},
+          {
+            "field": "Obesity (IHME, 2019)",
+            "aggregate": "average",
+            "type": "quantitative",
+            "title": "Avg.(%) Death by Obesity ",
+            "format": ".2f"
+          }
+        ],
+        "color": {
+          "condition": {
+            "selection": "click",
+            "field": "Entity",
+            "scale": {
+              "domain": [
+                "Africa",
+                "Asia",
+                "Europe",
+                "North America",
+                "South America & Caribbean",
+                "Oceania",
+                "World"
+              ],
+              "range": [
+                "#1a8cff",
+                "#00cccc",
+                "#00b3b3",
+                "#66cc00",
+                "#e6e600",
+                "#000000"
+              ]
+            }
+          },
+          "value": "lightgray"
+        },
+        "x": {
+          "field": "Obesity (IHME, 2019)",
+          "aggregate": "average",
+          "title": "Average % Deaths by Obesity"
+        },
+        "y": {"field": "Entity", "title": null}
+      },
+      "width": 600,
+      "mark": {"type": "bar"},
+      "selection": {"click": {"encodings": ["color"], "type": "multi"}},
+      "transform": [{"filter": {"selection": "brush"}}]
+    }
+  ],
+  "config": {}
+}
