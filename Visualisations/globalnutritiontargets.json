@@ -1,0 +1,38 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/vinmat20/FIT3179/main/Countries_target.csv"
+  },
+  "title": "Number of Countries On Course to Meet Global Nutrition Targets",
+  "width": "container",
+  "mark": "bar",
+  "selection": {
+    "Global Targets": {
+      "type": "multi",
+      "fields": ["Global Nutrition Progress"],
+      "bind": "legend"
+    }
+  },
+  "encoding": {
+    "x": {"field": "Nutrition", "type": "nominal", "title": null},
+    "y": {"field": "Number of Countries", "type": "quantitative"},
+    "opacity": {
+      "condition": {"selection": "Global Targets", "value": 1},
+      "value": 0.1
+    },
+    "color": {
+      "field": "Global Nutrition Progress",
+      "scale": {
+        "domain": [
+          "On course",
+          "Some progress",
+          "No progress/worsening",
+          "No data/insufficient"
+        ],
+        "range": ["#1f77b4", "#aec7e8", "#4eb3d3", "#c7c7c7"]
+      },
+      "title": "Global Targets"
+    }
+  },
+  "config": {}
+}
